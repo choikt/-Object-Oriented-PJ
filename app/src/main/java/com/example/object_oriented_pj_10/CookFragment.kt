@@ -83,14 +83,14 @@ class CookFragment : Fragment() {
             stopTimer2()
         }
         binding?.btnThird?.setOnClickListener{
-            viewMode3("start2")
+            viewMode3("start3")
             startStop3()
         }
-        binding?.stopBtn2?.setOnClickListener{
+        binding?.stopBtn3?.setOnClickListener{
             startStop3()
         }
-        binding?.cancelBtn2?.setOnClickListener{
-            viewMode3("cancel2")
+        binding?.cancelBtn3?.setOnClickListener{
+            viewMode3("cancel3")
             stopTimer3()
         }
 
@@ -98,7 +98,7 @@ class CookFragment : Fragment() {
     private fun viewMode3(mode:String){
         firstState3=true
 
-        if (mode=="start2"){
+        if (mode=="start3"){
             binding?.settingLayout3?.visibility= View.GONE
             binding?.timerLayout3?.visibility= View.VISIBLE
         }
