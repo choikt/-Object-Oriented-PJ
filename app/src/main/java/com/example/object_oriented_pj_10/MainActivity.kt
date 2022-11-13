@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import androidx.appcompat.view.ActionMode
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.object_oriented_pj_10.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding:ActivityMainBinding
+    /*lateinit var binding:ActivityMainBinding
 
     lateinit var countDownTimer: CountDownTimer
     lateinit var countDownTimer2: CountDownTimer
@@ -42,17 +45,7 @@ class MainActivity : AppCompatActivity() {
             viewMode("cancel")
             stopTimer()
         }
-        binding.startBtn2.setOnClickListener{
-            viewMode("start")
-            startStop2()
-        }
-        binding.stopBtn2.setOnClickListener{
-            startStop2()
-        }
-        binding.cancelBtn2.setOnClickListener{
-            viewMode("cancel")
-            stopTimer2()
-        }
+
     }
 
     private fun viewMode(mode:String){
@@ -114,66 +107,18 @@ class MainActivity : AppCompatActivity() {
         if(sec<10)timerLeftText+="0"
         timerLeftText+="$sec"
         binding.timerText.text=timerLeftText
+    }*/
+    lateinit var binding:ActivityMainBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val navController=binding.frgnav.getFragment<NavHostFragment>().navController
+        setupActionBarWithNavController(navController)
+        setContentView(binding.root)
     }
 
-    private fun viewMode2(mode:String){
-        firstState2=true
-
-        if (mode=="start"){
-            binding.settingLayout2.visibility= View.GONE
-            binding.timerLayout2.visibility= View.VISIBLE
-        }
-        else{
-            binding.settingLayout2.visibility= View.VISIBLE
-            binding.timerLayout2.visibility= View.GONE
-        }
-    }
-    private fun startStop2(){
-        if(timeRunning2){
-            stopTimer2()
-        }
-        else{
-            startTimer2()
-        }
-    }
-    private fun startTimer2(){
-        if (firstState2){
-            val sHour= binding.hourEdit2.text.toString()
-            val sMin= binding.minEdit2.text.toString()
-            val sSec= binding.secEdit2.text.toString()
-            time2 =(sHour.toLong()*3600000)+(sMin.toLong()*60000)+(sSec.toLong()*1000)+1000
-        }
-        else{
-            time2 = tempTime2
-        }
-        countDownTimer2= object:CountDownTimer(time2,1000){
-            override fun onTick(millisUnitFinshed: Long) {
-                tempTime2=millisUnitFinshed
-                updateTime2()
-            }
-
-            override fun onFinish() {}
-        }.start()
-        binding.stopBtn2.text="일시정지"
-        timeRunning2=true
-        firstState2=false
-    }
-    private fun stopTimer2(){
-        countDownTimer2.cancel()
-        timeRunning2=false
-        binding.stopBtn2.text="계속"
-
-    }
-    private fun updateTime2(){
-        val hour = tempTime2/3600000
-        val min =tempTime2%3600000/60000
-        val sec =tempTime2%3600000%60000/1000
-
-        var timerLeftText="$hour :"
-        if(min<10)timerLeftText+="0"
-        timerLeftText+="$min :"
-        if(sec<10)timerLeftText+="0"
-        timerLeftText+="$sec"
-        binding.timerText2.text=timerLeftText
+    override fun onSupportNavigateUp(): Boolean {
+        val navController=binding.frgnav.getFragment<NavHostFragment>().navController
+        return navController.navigateUp()||super.onSupportNavigateUp()
     }
 }
