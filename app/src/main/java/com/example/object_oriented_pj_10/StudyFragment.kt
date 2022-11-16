@@ -34,7 +34,7 @@ class SutdyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sutdy, container, false)
+        return inflater.inflate(R.layout.fragment_study, container, false)
     }
 
     companion object {

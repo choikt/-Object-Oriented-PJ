@@ -3,28 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/entryFragment">
+    app:startDestination="@id/studyFragment">
 
     <fragment
-        android:id="@+id/entryFragment"
-        android:name="com.example.object_oriented_pj_10.EntryFragment"
-        android:label="Main"
-        tools:layout="@layout/fragment_entry">
-        <action
-            android:id="@+id/action_entryFragment_to_sutdyFragment"
-            app:destination="@id/sutdyFragment" />
-        <action
-            android:id="@+id/action_entryFragment_to_cookFragment"
-            app:destination="@id/cookFragment" />
-        <action
-            android:id="@+id/action_entryFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/sutdyFragment"
+        android:id="@+id/studyFragment"
         android:name="com.example.object_oriented_pj_10.SutdyFragment"
         android:label="Study"
-        tools:layout="@layout/fragment_sutdy" />
+        tools:layout="@layout/fragment_study" />
     <fragment
         android:id="@+id/cookFragment"
         android:name="com.example.object_oriented_pj_10.CookFragment"
