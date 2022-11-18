@@ -24,7 +24,7 @@
         android:id="@+id/sutdyFragment"
         android:name="com.example.object_oriented_pj_10.SutdyFragment"
         android:label="Study"
-        tools:layout="@layout/fragment_sutdy" />
+        tools:layout="@layout/fragment_study" />
     <fragment
         android:id="@+id/cookFragment"
         android:name="com.example.object_oriented_pj_10.CookFragment"
