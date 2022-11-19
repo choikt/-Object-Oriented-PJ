@@ -1,14 +1,19 @@
 package com.example.object_oriented_pj_10
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.SystemClock
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.object_oriented_pj_10.databinding.FragmentCookBinding
 import com.example.object_oriented_pj_10.databinding.FragmentStudyBinding
 
 class StudyFragment : Fragment() {
+
     var binding: FragmentStudyBinding?=null
 
     //멈춘 시각 저장
@@ -28,9 +33,7 @@ class StudyFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding?.root
     }
-
-    private fun viewMode(mode:String){
-
+    override fun onViewCreated(mode:String){
         // elapsedRealtime: 부팅 이후의 밀리초를 리턴 (절전 모드에서 보낸 시간 포함)
         // 사용자가 현재시간을 수정해도 영향 받지 않음
         binding?.startBtn?.setOnClickListener {
@@ -64,8 +67,5 @@ class StudyFragment : Fragment() {
             binding?.resetBtn?.isEnabled = false
             binding?.startBtn?.isEnabled = true
         }
-
-
-
     }
 }
