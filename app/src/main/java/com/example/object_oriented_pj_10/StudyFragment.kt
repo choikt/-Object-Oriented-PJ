@@ -1,59 +1,116 @@
 package com.example.object_oriented_pj_10
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.object_oriented_pj_10.databinding.FragmentStudyBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StudyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StudyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    var binding: FragmentStudyBinding?=null
+    lateinit var countDownTimer: CountDownTimer
+
+
+    var timeRunning = false
+    var firstState=false
+    var time =0L
+    var tempTime= 0L
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentStudyBinding.inflate(inflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_study, container, false)
+        return binding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SutdyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StudyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.btnFirst?.setOnClickListener{
+            viewMode("start")
+            startStop()
+        }
+        binding?.stopBtn?.setOnClickListener{
+            startStop()
+        }
+        binding?.cancelBtn?.setOnClickListener{
+            viewMode("cancel")
+            stopTimer()
+        }
+
+    }
+
+
+
+
+    private fun viewMode(mode:String){
+        /*firstState=true
+
+        if (mode=="start"){*/
+            binding?.settingLayout?.visibility= View.GONE
+            binding?.timerLayout?.visibility= View.VISIBLE
+     /*   }
+        else{
+            binding?.settingLayout?.visibility= View.VISIBLE
+            binding?.timerLayout?.visibility= View.GONE
+        }*/
+    }
+    private fun startStop(){
+        if(timeRunning){
+            stopTimer()
+        }
+        else{
+            startTimer()
+        }
+    }
+    private fun startTimer(){
+        if (firstState){
+            val sHour= binding?.hourEdit?.text.toString()
+            val sMin= binding?.minEdit?.text.toString()
+            val sSec= binding?.secEdit?.text.toString()
+            time =(sHour.toLong()*3600000)+(sMin.toLong()*60000)+(sSec.toLong()*1000)+1000
+        }
+        else{
+            time = tempTime
+        }
+        countDownTimer= object:CountDownTimer(time,1000){
+            override fun onTick(millisUnitFinshed: Long) {
+                tempTime=millisUnitFinshed
+                updateTime()
             }
+
+            override fun onFinish() {}
+        }.start()
+        binding?.stopBtn?.text="일시정지"
+        timeRunning=true
+        firstState=false
+    }
+    private fun stopTimer(){
+        countDownTimer.cancel()
+        timeRunning=false
+        binding?.stopBtn?.text="계속"
+
+    }
+    private fun updateTime(){
+        val hour = tempTime/3600000
+        val min =tempTime%3600000/60000
+        val sec =tempTime%3600000%60000/1000
+
+        var timerLeftText="$hour :"
+        if(min<10)timerLeftText+="0"
+        timerLeftText+="$min :"
+        if(sec<10)timerLeftText+="0"
+        timerLeftText+="$sec"
+        binding?.timerText?.text=timerLeftText
     }
 }
