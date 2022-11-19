@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/studyFragment">
+
+    <fragment
+        android:id="@+id/studyFragment"
+        android:name="com.example.object_oriented_pj_10.StudyFragment"
+        android:label="Study"
+        tools:layout="@layout/fragment_study" />
+    <fragment
+        android:id="@+id/cookFragment"
+        android:name="com.example.object_oriented_pj_10.CookFragment"
+        android:label="Cook"
+        tools:layout="@layout/fragment_cook" />
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.object_oriented_pj_10.ExerciseFragment"
+        android:label="Exercise"
+        tools:layout="@layout/fragment_exercise" />
+</navigation>
