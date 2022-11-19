@@ -1,59 +1,175 @@
 package com.example.object_oriented_pj_10
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ExerciseFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ExerciseFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    var binding: FragmentExerciseBinding?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise, container, false)
+        binding = FragmentExerciseBinding.inflate(inflater)
+
+        return binding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExerciseFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExerciseFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        var selectNum = 0
+        var exerciseTime = 0
+        var intentlist = arrayListOf<ExerciseList>()
+        val list = arrayListOf<ExerciseList>()
+        var map = mutableMapOf<String,List<Int>>();
+
+        binding?.recExercise?.layoutManager = LinearLayoutManager(context)
+        binding?.recExercise?.adapter = ExerciseAdapter(list)
+
+
+        //전환할 화면은 ExerciseTimer이다.
+
+
+        //같이 가져갈 데이터는 리스트 형태이다.
+        //
+        //            bundle.putParcelableArrayList("exercise", intentlist)
+        //
+
+        val bundle = Bundle();
+
+        val secondFragment = ExerciseTimer()
+
+
+
+
+        //startButton을 누르면 ExerciseTimer로 넘어감
+        binding?.startButton?.setOnClickListener() {
+
+
+                val result = bundle.putSerializable("exercise",intentlist);
+            setFragmentResult("requestKey", bundleOf("bundleKey" to result))
             }
+
+
+        //세트 수 정하는 버튼 클릭 이벤트
+        binding?.SetCount?.setOnClickListener  {
+            val dialog = AlertDialog.Builder(it.context).create()
+
+            val edialog: LayoutInflater = LayoutInflater.from(it.context)
+            val mView: View = edialog.inflate(R.layout.setmodal, null)
+
+            val second: NumberPicker = mView.findViewById(R.id.number_picker)
+
+            val cancel: Button = mView.findViewById<Button>(R.id.btn_cancel)
+            val start: Button = mView.findViewById<Button>(R.id.btn_ok)
+
+            second.minValue = 0
+            second.maxValue = 59
+
+            second.value =1
+
+            cancel.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            start.setOnClickListener {
+                selectNum = second.value
+                dialog.dismiss()
+            }
+
+            dialog.setView(mView)
+
+            dialog.create()
+            dialog.show()
+
+        }
+        binding?.SetTime?.setOnClickListener {
+
+            val dialog = AlertDialog.Builder(it.context).create()
+
+            val edialog: LayoutInflater = LayoutInflater.from(it.context)
+            val mView: View = edialog.inflate(R.layout.timemodal, null)
+
+            val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
+            val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
+
+            val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
+            val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+            // editText 설정해제
+            minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            //최소값 설정
+            minute.minValue = 0
+            second.minValue = 0
+
+            //최대값 설정
+            minute.maxValue = 30
+            second.maxValue = 59
+            //기본값 설정
+            minute.value = 1
+            second.value = 0
+
+
+            //취소버튼
+            cancel.setOnClickListener {
+                dialog.dismiss()
+                dialog.cancel()
+            }
+
+
+            start.setOnClickListener {
+                exerciseTime = minute.value * 60 +second.value
+
+                dialog.dismiss()
+            }
+
+
+            dialog.setView(mView)
+
+            dialog.create()
+            dialog.show()
+
+        }
+        fun addTask(){
+            var exercise = ExerciseList(binding?.setName?.text.toString(), selectNum, exerciseTime)
+
+            list.add(exercise)
+            //startIntent.putExtra("type",1)
+            val bool = 1
+            setFragmentResult("booleanKey", bundleOf("bundleKey" to bool))
+            intentlist.add(exercise)
+
+            binding?.recExercise?.adapter?.notifyDataSetChanged()
+        }
+
+        binding?.addButton?.setOnClickListener {
+
+            addTask()
+            //startIntent.putExtra("map", map);
+        }
+
+        //intent시 back 버튼으로 전으로 돌아오기
+
     }
 }
