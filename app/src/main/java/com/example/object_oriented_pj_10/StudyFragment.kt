@@ -1,21 +1,15 @@
 package com.example.object_oriented_pj_10
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.SystemClock
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.object_oriented_pj_10.databinding.FragmentCookBinding
 import com.example.object_oriented_pj_10.databinding.FragmentStudyBinding
 
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding?=null
-    //뒤로가기 버튼 누른 시각 저장
-    var initTime = 0L
 
     //멈춘 시각 저장
     var pauseTime = 0L
