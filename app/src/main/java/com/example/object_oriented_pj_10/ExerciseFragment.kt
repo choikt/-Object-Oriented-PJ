@@ -1,17 +1,14 @@
 package com.example.object_oriented_pj_10
 
-import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
 
@@ -40,7 +37,6 @@ class ExerciseFragment : Fragment() {
 
         var selectNum = 0
         var exerciseTime = 0
-        var intentlist = arrayListOf<ExerciseList>()
         val list = arrayListOf<ExerciseList>()
         var map = mutableMapOf<String,List<Int>>();
 
@@ -56,19 +52,21 @@ class ExerciseFragment : Fragment() {
         //            bundle.putParcelableArrayList("exercise", intentlist)
         //
 
-        val bundle = Bundle();
-
-        val secondFragment = ExerciseTimer()
-
 
 
 
         //startButton을 누르면 ExerciseTimer로 넘어감
         binding?.startButton?.setOnClickListener() {
+            println(list);
+            val f = Fragment()
+            val bundle = Bundle()
 
 
-                val result = bundle.putSerializable("exercise",intentlist);
-            setFragmentResult("requestKey", bundleOf("bundleKey" to result))
+            bundle.putParcelableArrayList("exercise", list) // list 넘기기
+
+            f.arguments = bundle
+
+
             }
 
 
@@ -156,9 +154,9 @@ class ExerciseFragment : Fragment() {
 
             list.add(exercise)
             //startIntent.putExtra("type",1)
-            val bool = 1
-            setFragmentResult("booleanKey", bundleOf("bundleKey" to bool))
-            intentlist.add(exercise)
+//            val bool = 1
+//            secondFragment.setFragmentResult("booleanKey", bundleOf("booleanKey" to bool))
+
 
             binding?.recExercise?.adapter?.notifyDataSetChanged()
         }

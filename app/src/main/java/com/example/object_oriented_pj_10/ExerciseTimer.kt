@@ -2,13 +2,13 @@ package com.example.object_oriented_pj_10
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.fragment.app.Fragment
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseTimerBinding
 
 
@@ -40,35 +40,40 @@ class ExerciseTimer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val result = arrayListOf<ExerciseList>();
-        val bool = 0;
-        setFragmentResult("requestKey", bundleOf("bundleKey" to result))
-        setFragmentResult("booleanKey", bundleOf("bundleKey" to bool))
-        if (bool == 0){
-            val name = "";
-            val exercisetime = 0;
-            val resttime = 0;
 
-        }else {
-            var sets = result
+        val bundle = arguments
+
+        val result = bundle!!.getParcelableArrayList<ExerciseList>("exercise")
+
+
+//        setFragmentResultListener("requestKey") { requestKey, bundle ->
+//            val result = bundle.getSerializable("bundleKey");
+//            println(result);
+//        }
+
+        var sets = result
+        if (sets==null){
+            name.setText(" ");
+            timer.setText("조금만 힘내!!"+0);
+        }else{
+        for (set in sets){
+            println(set);
+        }
+        binding?.button?.setOnClickListener{
             for (set in sets){
-                println(set);
-            }
-            binding?.button?.setOnClickListener{
-                for (set in sets){
-                    object: CountDownTimer(set.exerciseTime*1000.toLong(),1000){
-                        override fun onTick(millisUntilFinished: Long) {
-                            name.setText(set.name)
-                            timer.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
-                        }
+                object: CountDownTimer(set.exerciseTime*1000.toLong(),1000){
+                    override fun onTick(millisUntilFinished: Long) {
+                        name.setText(set.name)
+                        timer.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
+                    }
 
-                        override fun onFinish() {
-                            name.setText("쉬는 시간")
-                            timer.setText("0")
-                        }
-                    }.start()
-                }
+                    override fun onFinish() {
+                        name.setText("쉬는 시간")
+                        timer.setText("0")
+                    }
+                }.start()
             }
+        }
         }
 
     }
