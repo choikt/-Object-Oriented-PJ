@@ -2,7 +2,6 @@ package com.example.object_oriented_pj_10
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +21,9 @@ class ExerciseTimer : Fragment() {
     lateinit var name: TextView
     lateinit var timer: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -43,37 +41,32 @@ class ExerciseTimer : Fragment() {
 
         val bundle = arguments
 
-        val result = bundle!!.getParcelableArrayList<ExerciseList>("exercise")
+        val results = bundle!!.getParcelableArrayList<ExerciseList>("exercise")
+
+        println(results)
 
 
-//        setFragmentResultListener("requestKey") { requestKey, bundle ->
-//            val result = bundle.getSerializable("bundleKey");
-//            println(result);
-//        }
 
-        var sets = result
-        if (sets==null){
-            name.setText(" ");
-            timer.setText("조금만 힘내!!"+0);
-        }else{
-        for (set in sets){
-            println(set);
-        }
         binding?.button?.setOnClickListener{
-            for (set in sets){
-                object: CountDownTimer(set.exerciseTime*1000.toLong(),1000){
-                    override fun onTick(millisUntilFinished: Long) {
-                        name.setText(set.name)
-                        timer.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
-                    }
+            if (results==null){
+                binding?.name?.setText("")
+                binding?.timer?.setText("조금만 힘내자!! "+ 0)
+            }else{
+                for (set in results){
+                    println(set);
+                    object: CountDownTimer(set.exerciseTime*1000.toLong(),1000){
+                        override fun onTick(millisUntilFinished: Long) {
+                            binding?.name?.setText(set.name)
+                            binding?.timer?.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
+                        }
 
-                    override fun onFinish() {
-                        name.setText("쉬는 시간")
-                        timer.setText("0")
+                        override fun onFinish() {
+                            name.setText("쉬는 시간")
+                            timer.setText("0")
+                            }
+                        }.start()
                     }
-                }.start()
             }
-        }
         }
 
     }

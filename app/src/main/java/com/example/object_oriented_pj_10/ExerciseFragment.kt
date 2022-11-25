@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
+import com.example.object_oriented_pj_10.databinding.FragmentExerciseTimerBinding
 
 
 class ExerciseFragment : Fragment() {
@@ -57,15 +60,14 @@ class ExerciseFragment : Fragment() {
 
         //startButton을 누르면 ExerciseTimer로 넘어감
         binding?.startButton?.setOnClickListener() {
-            println(list);
+
             val f = Fragment()
             val bundle = Bundle()
 
 
             bundle.putParcelableArrayList("exercise", list) // list 넘기기
-
             f.arguments = bundle
-
+            findNavController().navigate(R.id.action_exerciseFragment_to_exerciseTimer, bundle)
 
             }
 
