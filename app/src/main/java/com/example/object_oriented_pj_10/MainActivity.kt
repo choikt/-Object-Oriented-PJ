@@ -1,6 +1,7 @@
 package com.example.object_oriented_pj_10
 
 import androidx.appcompat.app.AppCompatActivity
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.object_oriented_pj_10.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityMainBinding
+    val soundPool=SoundPool.Builder().build()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

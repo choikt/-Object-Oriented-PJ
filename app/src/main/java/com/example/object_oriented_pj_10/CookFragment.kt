@@ -1,5 +1,7 @@
 package com.example.object_oriented_pj_10
 
+import android.content.Context
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
@@ -13,9 +15,12 @@ import com.example.object_oriented_pj_10.databinding.FragmentCookBinding
 
 class CookFragment : Fragment() {
     var binding: FragmentCookBinding?=null
+
     lateinit var countDownTimer: CountDownTimer
     lateinit var countDownTimer2: CountDownTimer
     lateinit var countDownTimer3: CountDownTimer
+
+
 
 
 
@@ -34,8 +39,16 @@ class CookFragment : Fragment() {
 
     var time3 =0L
     var tempTime3= 0L
+    val soundPool = SoundPool.Builder().build()
+    private var endSoundId: Int? =null
+    lateinit var mainActivity: MainActivity
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
+        // 2. Context를 액티비티로 형변환해서 할당
+        mainActivity = context as MainActivity
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,12 +59,13 @@ class CookFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCookBinding.inflate(inflater)
-        // Inflate the layout for this fragment
+
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initSounds()
         binding?.btnFirst?.setOnClickListener{
             viewMode("start")
             startStop()
@@ -87,6 +101,11 @@ class CookFragment : Fragment() {
         }
 
     }
+    private fun initSounds() {
+        endSoundId = soundPool.load(mainActivity, R.raw.end, 1)
+    }
+
+
     private fun viewMode3(mode:String){
         firstState3=true
 
@@ -123,7 +142,11 @@ class CookFragment : Fragment() {
                 updateTime3()
             }
 
-            override fun onFinish() {}
+            override fun onFinish() {
+                endSoundId?.let { soundId ->
+                    soundPool.play(soundId, 1F, 1F, 0, 1, 1F)
+                }
+            }
         }.start()
         binding?.stopBtn3?.text="일시정지"
         timeRunning3=true
@@ -183,7 +206,11 @@ class CookFragment : Fragment() {
                 updateTime2()
             }
 
-            override fun onFinish() {}
+            override fun onFinish() {
+                endSoundId?.let { soundId ->
+                    soundPool.play(soundId, 1F, 1F, 0, 1, 1F)
+                }
+            }
         }.start()
         binding?.stopBtn2?.text="일시정지"
         timeRunning2=true
@@ -247,7 +274,11 @@ class CookFragment : Fragment() {
                 updateTime()
             }
 
-            override fun onFinish() {}
+            override fun onFinish() {
+                endSoundId?.let { soundId ->
+                    soundPool.play(soundId, 1F, 1F, 0, 1, 1F)
+                }
+            }
         }.start()
         binding?.stopBtn?.text="일시정지"
         timeRunning=true
@@ -272,3 +303,6 @@ class CookFragment : Fragment() {
         binding?.timerText?.text=timerLeftText
     }
 }
+
+
+
