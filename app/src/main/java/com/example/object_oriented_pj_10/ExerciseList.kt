@@ -8,5 +8,5 @@ import java.io.Serializable
 data class ExerciseList (
     val name: String?,
     val restTime : Int,
-    val exerciseTime : Int
+    val exerciseTime : Int,
 ) : Parcelable

@@ -64,11 +64,12 @@ class ExerciseTimer : Fragment() {
             object: CountDownTimer(time*1000.toLong(),1000){
                 override fun onTick(millisUntilFinished: Long) {
                     binding?.name?.setText(set!!.name)
+
                     if (a==0){
-                        binding?.timer?.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
+                        binding?.timer?.setText("조금만 힘내자!! " + "%01d".format(millisUntilFinished/1000 / 60)+":"+"%01d".format(millisUntilFinished%1000 % 60))
                     }
                     else {
-                        binding?.timer?.setText("조금만 쉴게요~~ " + millisUntilFinished / 1000);
+                        binding?.timer?.setText("조금만 쉴게요~~ " + "%02d".format(millisUntilFinished/1000 / 60)+":"+"%02d".format(millisUntilFinished%1000 % 60));
                     }
                 }
                 override fun onFinish() {

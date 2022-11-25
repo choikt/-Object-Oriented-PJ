@@ -29,7 +29,7 @@ class Holder(private val binding: ListExerciseBinding) : RecyclerView.ViewHolder
         binding.restTime.text = exercise.restTime.toString()
 
         binding.root.setOnClickListener {
-        Toast.makeText(binding.root.context,"운동이름: ${exercise.name} 운동시간: ${exercise.exerciseTime}\n 쉬는시간: ${exercise.restTime}\n", Toast.LENGTH_SHORT).show()
+        Toast.makeText(binding.root.context,"운동이름: ${exercise.name} 운동시간: ${exercise.exerciseTime/60}:${exercise.exerciseTime%60}\n 쉬는시간: ${exercise.restTime}\n", Toast.LENGTH_SHORT).show()
         }
         }
         }
