@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseTimerBinding
+import java.util.ArrayList
 
 
 class ExerciseTimer : Fragment() {
@@ -38,37 +39,49 @@ class ExerciseTimer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val bundle = arguments
-
         val results = bundle!!.getParcelableArrayList<ExerciseList>("exercise")
-
-        println(results)
-
-
-
         binding?.button?.setOnClickListener{
-            if (results==null){
-                binding?.name?.setText("")
-                binding?.timer?.setText("조금만 힘내자!! "+ 0)
-            }else{
-                for (set in results){
-                    println(set);
-                    object: CountDownTimer(set.exerciseTime*1000.toLong(),1000){
-                        override fun onTick(millisUntilFinished: Long) {
-                            binding?.name?.setText(set.name)
-                            binding?.timer?.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
-                        }
-
-                        override fun onFinish() {
-                            name.setText("쉬는 시간")
-                            timer.setText("0")
-                            }
-                        }.start()
-                    }
-            }
+            startWorkout(results, 0);
         }
-
     }
 
+
+    private fun startWorkout(exerciseList: ArrayList<ExerciseList>?, a: Int){
+        println(exerciseList);
+        if (exerciseList!!.isEmpty()){
+            binding?.name?.setText("끝났습니다!")
+            binding?.timer?.setText("끝났습니다!")
+        }else{
+
+            val set = exerciseList?.get(0)
+
+            var time = set!!.exerciseTime;
+            if (a==1){
+                var time = set!!.restTime;
+            }
+
+            object: CountDownTimer(time*1000.toLong(),1000){
+                override fun onTick(millisUntilFinished: Long) {
+                    binding?.name?.setText(set!!.name)
+                    if (a==0){
+                        binding?.timer?.setText("조금만 힘내자!! " + millisUntilFinished / 1000)
+                    }
+                    else {
+                        binding?.timer?.setText("조금만 쉴게요~~ " + millisUntilFinished / 1000);
+                    }
+                }
+                override fun onFinish() {
+                    if (a==1){
+                        exerciseList.removeAt(0)
+                        startWorkout(exerciseList,0)
+                    }
+                    else{
+
+                        startWorkout(exerciseList,1);
+                    }
+                }
+            }.start()
+        }
+    }
 }
