@@ -3,9 +3,6 @@ package com.example.object_oriented_pj_10
 import androidx.appcompat.app.AppCompatActivity
 import android.media.SoundPool
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.view.View
-import androidx.appcompat.view.ActionMode
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
