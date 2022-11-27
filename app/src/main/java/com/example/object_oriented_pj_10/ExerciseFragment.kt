@@ -8,18 +8,28 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
+import com.example.object_oriented_pj_10.repository.MyExerciseRepository
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_exercise.*
+import kotlinx.android.synthetic.main.list_exercise.*
 
 
 class ExerciseFragment : Fragment() {
 
     var binding: FragmentExerciseBinding?=null
+    private val repository = MyExerciseRepository();
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -36,6 +46,7 @@ class ExerciseFragment : Fragment() {
 
 
         var selectNum = 0
+        var restTime =0
         var exerciseTime = 0
         var setNum =0
         val list = arrayListOf<ExerciseList>()
@@ -58,6 +69,7 @@ class ExerciseFragment : Fragment() {
 
         //startButton을 누르면 ExerciseTimer로 넘어감
         binding?.startButton?.setOnClickListener() {
+
 
             val f = Fragment()
             val bundle = Bundle()
@@ -107,7 +119,7 @@ class ExerciseFragment : Fragment() {
 
             start.setOnClickListener {
                 exerciseTime = minute.value * 60 +second.value
-
+                SetTime.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
                 dialog.dismiss()
             }
 
@@ -141,6 +153,7 @@ class ExerciseFragment : Fragment() {
 
             start.setOnClickListener {
                 setNum = second.value
+                setSets.setText(second.value.toString()+"개");
                 dialog.dismiss()
             }
 
@@ -186,7 +199,8 @@ class ExerciseFragment : Fragment() {
 
 
             start.setOnClickListener {
-                exerciseTime = minute.value * 60 +second.value
+                restTime = minute.value * 60 +second.value
+                SetCount.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
 
                 dialog.dismiss()
             }
@@ -198,10 +212,31 @@ class ExerciseFragment : Fragment() {
             dialog.show()
 
         }
+
+
+
+
+
+
         fun addTask(){
-            var exercise = ExerciseList(binding?.setName?.text.toString(), selectNum, exerciseTime,);
+//            database = FirebaseDatabase.getInstance().getReference("ExerciseLists")
+            var exercise = ExerciseList(binding?.setName?.text.toString(), restTime, exerciseTime);
+
+
+
+//            val firebaseexercise = firebaseList(binding?.setName?.text.toString(), selectNum.toString(), exerciseTime.toString());
+//
+//            database.child(firebaseexercise.name.toString()).setValue(firebaseexercise)
+//            .addOnSuccessListener {
+//                    binding?.setName?.text?.clear()
+//                    println("Success")
+//                }.addOnFailureListener {
+//                    println("fail");
+//            }
+
             for(i: Int in 1..setNum){
                 list.add(exercise)
+
             }
 
             //startIntent.putExtra("type",1)
@@ -210,12 +245,15 @@ class ExerciseFragment : Fragment() {
 
 
             binding?.recExercise?.adapter?.notifyDataSetChanged()
+            repository.postMbti(exercise)
         }
 
         binding?.addButton?.setOnClickListener {
 
             addTask()
             //startIntent.putExtra("map", map);
+
+
         }
 
         //intent시 back 버튼으로 전으로 돌아오기

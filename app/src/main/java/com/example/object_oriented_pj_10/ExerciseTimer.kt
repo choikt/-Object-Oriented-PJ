@@ -66,10 +66,10 @@ class ExerciseTimer : Fragment() {
                     binding?.name?.setText(set!!.name)
 
                     if (a==0){
-                        binding?.timer?.setText("조금만 힘내자!! " + "%01d".format(millisUntilFinished/1000 / 60)+":"+"%01d".format(millisUntilFinished%1000 % 60))
+                        binding?.timer?.setText("조금만 힘내자!! " + "%01d".format(millisUntilFinished/1000 / 60)+":"+"%01d".format(millisUntilFinished/1000 % 60))
                     }
                     else {
-                        binding?.timer?.setText("조금만 쉴게요~~ " + "%02d".format(millisUntilFinished/1000 / 60)+":"+"%02d".format(millisUntilFinished%1000 % 60));
+                        binding?.timer?.setText("조금만 쉴게요~~ " + "%01d".format(millisUntilFinished/1000 / 60)+":"+"%01d".format(millisUntilFinished/1000 % 60));
                     }
                 }
                 override fun onFinish() {
