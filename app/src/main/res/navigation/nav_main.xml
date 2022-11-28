@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/studyFragment"
-        android:name="com.example.object_oriented_pj_10.Study.StudyFragment"
+        android:name="com.example.object_oriented_pj_10.StudyFragment"
         android:label="Study"
-        tools:layout="@layout/fragment_study" />
+        tools:layout="@layout/fragment_study" >
+        <action
+            android:id="@+id/action_studyFragment_to_studyFragment2"
+            app:destination="@id/studyFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/cookFragment"
         android:name="com.example.object_oriented_pj_10.CookFragment"
@@ -32,5 +36,14 @@
         <action
             android:id="@+id/action_exerciseTimer_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studyFragment2"
+        android:name="com.example.object_oriented_pj_10.StudyFragment2"
+        android:label="fragment_study2"
+        tools:layout="@layout/fragment_study2" >
+        <action
+            android:id="@+id/action_studyFragment2_to_studyFragment"
+            app:destination="@id/studyFragment" />
     </fragment>
 </navigation>

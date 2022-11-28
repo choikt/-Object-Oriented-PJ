@@ -1,19 +1,16 @@
 package com.example.object_oriented_pj_10
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
-import com.example.object_oriented_pj_10.databinding.FragmentExerciseTimerBinding
 
 
 class ExerciseFragment : Fragment() {
