@@ -2,16 +2,16 @@ package com.example.object_oriented_pj_10
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.object_oriented_pj_10.databinding.FragmentStudyBinding
 
 class StudyFragment : Fragment() {
 
-    var binding: FragmentStudyBinding?=null
+    var binding:FragmentStudyBinding?=null
 
     //멈춘 시각 저장
     var pauseTime = 0L
@@ -46,6 +46,13 @@ class StudyFragment : Fragment() {
 
         binding?.resetBtn?.setOnClickListener {
             resetButton()
+        }
+        val f = Fragment()
+        val bundle = Bundle()
+        binding?.countdownBtn?.setOnClickListener {
+            bundle.putInt("key",0)
+            f.arguments = bundle
+            findNavController().navigate(R.id.action_studyFragment_to_studyFragment2, bundle)
         }
     }
 
