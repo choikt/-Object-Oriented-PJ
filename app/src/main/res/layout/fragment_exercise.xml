@@ -36,18 +36,18 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/SetTime"
+        android:id="@+id/setExerciseTime"
         android:layout_width="242dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/white"
         android:text="운동시간 선택"
         android:textColor="@color/black"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/SetCount"
+        app:layout_constraintBottom_toTopOf="@+id/setRestTime"
         app:layout_constraintEnd_toEndOf="@+id/SetBox"
         app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="@+id/SetBox"
-        app:layout_constraintTop_toBottomOf="@+id/setTitle"
+        app:layout_constraintTop_toBottomOf="@+id/setExerciseName"
         app:strokeColor="#000000"
         app:strokeWidth="4dp" />
 
@@ -86,7 +86,7 @@
         app:srcCompat="@drawable/startbutton" />
 
     <Button
-        android:id="@+id/SetCount"
+        android:id="@+id/setRestTime"
         android:layout_width="242dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/white"
@@ -96,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="@+id/SetBox"
         app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toStartOf="@+id/SetBox"
-        app:layout_constraintTop_toBottomOf="@+id/SetTime"
+        app:layout_constraintTop_toBottomOf="@+id/setExerciseTime"
         app:strokeColor="@color/black"
         app:strokeWidth="4dp" />
 
@@ -112,12 +112,12 @@
         app:layout_constraintEnd_toEndOf="@+id/SetBox"
         app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="@+id/SetBox"
-        app:layout_constraintTop_toBottomOf="@+id/SetCount"
+        app:layout_constraintTop_toBottomOf="@+id/setRestTime"
         app:strokeColor="@color/black"
         app:strokeWidth="4dp" />
 
     <EditText
-        android:id="@+id/setName"
+        android:id="@+id/setExerciseName"
         android:layout_width="240dp"
         android:layout_height="48dp"
         android:layout_marginTop="6dp"

@@ -8,12 +8,9 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
-import com.example.object_oriented_pj_10.repository.MyExerciseRepository
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import kotlinx.android.synthetic.main.list_exercise.*
 
@@ -38,47 +35,29 @@ class ExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        var selectNum = 0
-        var restTime =0
+        var restTime = 0
         var exerciseTime = 0
-        var setNum =0
+        var setNum = 0
         val list = arrayListOf<ExerciseList>();
-        var map = mutableMapOf<String,List<Int>>();
 
         binding?.recExercise?.layoutManager = LinearLayoutManager(context)
         binding?.recExercise?.adapter = ExerciseAdapter(list)
 
 
-        //전환할 화면은 ExerciseTimer이다.
-
-
-        //같이 가져갈 데이터는 리스트 형태이다.
-        //
-        //            bundle.putParcelableArrayList("exercise", intentlist)
-        //
-
-
-
-
         //startButton을 누르면 ExerciseTimer로 넘어감
         binding?.startButton?.setOnClickListener() {
-
-
             val f = Fragment()
             val bundle = Bundle()
 
             bundle.putParcelableArrayList("exercise", list) // list 넘기기
             f.arguments = bundle
             findNavController().navigate(R.id.action_exerciseFragment_to_exerciseTimer, bundle)
-
             }
 
 
-        //세트 수 정하는 버튼 클릭 이벤트
+        //운동시간 정하는 버튼 클릭 이벤트
 
-        binding?.SetTime?.setOnClickListener {
+        binding?.setExerciseTime?.setOnClickListener {
 
             val dialog = AlertDialog.Builder(it.context).create()
 
@@ -114,7 +93,7 @@ class ExerciseFragment : Fragment() {
 
             start.setOnClickListener {
                 exerciseTime = minute.value * 60 +second.value
-                SetTime.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
+                setExerciseTime.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
                 dialog.dismiss()
             }
 
@@ -159,7 +138,7 @@ class ExerciseFragment : Fragment() {
 
         }
 
-        binding?.SetCount?.setOnClickListener {
+        binding?.setRestTime?.setOnClickListener {
 
             val dialog = AlertDialog.Builder(it.context).create()
 
@@ -195,7 +174,7 @@ class ExerciseFragment : Fragment() {
 
             start.setOnClickListener {
                 restTime = minute.value * 60 +second.value
-                SetCount.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
+                setRestTime.setText(minute.value.toString()+"분 "+second.value.toString()+"초");
 
                 dialog.dismiss()
             }
@@ -208,50 +187,22 @@ class ExerciseFragment : Fragment() {
 
         }
 
-
-
-
-
-
         fun addTask(){
-//            database = FirebaseDatabase.getInstance().getReference("ExerciseLists")
-            var exercise = ExerciseList(binding?.setName?.text.toString(), restTime, exerciseTime);
-
-
-
-//            val firebaseexercise = firebaseList(binding?.setName?.text.toString(), selectNum.toString(), exerciseTime.toString());
-//
-//            database.child(firebaseexercise.name.toString()).setValue(firebaseexercise)
-//            .addOnSuccessListener {
-//                    binding?.setName?.text?.clear()
-//                    println("Success")
-//                }.addOnFailureListener {
-//                    println("fail");
-//            }
+            var exercise = ExerciseList(binding?.setExerciseTime?.text.toString(), restTime, exerciseTime);
 
             for(i: Int in 1..setNum){
                 list.add(exercise)
-
             }
 
-            //startIntent.putExtra("type",1)
-//            val bool = 1
-//            secondFragment.setFragmentResult("booleanKey", bundleOf("booleanKey" to bool))
-
-
             binding?.recExercise?.adapter?.notifyDataSetChanged()
-
         }
+
+
 
         binding?.addButton?.setOnClickListener {
-
             addTask()
-            //startIntent.putExtra("map", map);
-
-
         }
 
-        //intent시 back 버튼으로 전으로 돌아오기
 
     }
 }

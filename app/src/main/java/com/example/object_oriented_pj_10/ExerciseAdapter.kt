@@ -21,16 +21,11 @@ class ExerciseAdapter(val exercises: List<ExerciseList>): RecyclerView.Adapter<E
 
         override fun getItemCount()= exercises.size
 
-class Holder(private val binding: ListExerciseBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(exercise: ExerciseList){
-
-        binding.setName.text = exercise.name
-        binding.exerciseTime.text = ((exercise.exerciseTime)/60).toString()+" : "+((exercise.exerciseTime)%60).toString()
-        binding.restTime.text = ((exercise.restTime)/60).toString()+" : "+((exercise.restTime)%60).toString()
-
-        binding.root.setOnClickListener {
-        Toast.makeText(binding.root.context,"운동이름: ${exercise.name} 운동시간: ${exercise.exerciseTime}\n 쉬는시간: ${exercise.restTime}\n", Toast.LENGTH_SHORT).show()
-        }
-        }
-        }
-        }
+        class Holder(private val binding: ListExerciseBinding) : RecyclerView.ViewHolder(binding.root) {
+                fun bind(exercise: ExerciseList){
+                        binding.setName.text = exercise.name
+                        binding.exerciseTime.text = ((exercise.exerciseTime)/60).toString()+" : "+((exercise.exerciseTime)%60).toString()
+                        binding.restTime.text = ((exercise.restTime)/60).toString()+" : "+((exercise.restTime)%60).toString()
+                        }
+                }
+}
