@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseTimerBinding
+import com.example.object_oriented_pj_10.repository.MyExerciseRepository
 import java.util.ArrayList
 
 
@@ -21,7 +22,7 @@ class ExerciseTimer : Fragment() {
     var time_in_milli_seconds = 0L;
     lateinit var name: TextView
     lateinit var timer: TextView
-
+    private val repository = MyExerciseRepository();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,7 @@ class ExerciseTimer : Fragment() {
             object: CountDownTimer(time*1000.toLong(),1000){
                 override fun onTick(millisUntilFinished: Long) {
                     binding?.name?.setText(set!!.name)
+
 
                     if (a==0){
                         binding?.timer?.setText("조금만 힘내자!! " + "%01d".format(millisUntilFinished/1000 / 60)+":"+"%01d".format(millisUntilFinished/1000 % 60))

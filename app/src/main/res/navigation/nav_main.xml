@@ -16,6 +16,11 @@
         android:label="Cook"
         tools:layout="@layout/fragment_cook" />
     <fragment
+        android:id="@+id/memoFragment"
+        android:name="com.example.object_oriented_pj_10.MemoFragment"
+        android:label="Memo"
+        tools:layout="@layout/fragment_memo" />
+    <fragment
         android:id="@+id/exerciseFragment"
         android:name="com.example.object_oriented_pj_10.ExerciseFragment"
         android:label="Exercise"
@@ -33,4 +38,5 @@
             android:id="@+id/action_exerciseTimer_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
     </fragment>
+
 </navigation>

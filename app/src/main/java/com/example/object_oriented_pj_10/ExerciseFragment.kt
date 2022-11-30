@@ -14,10 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.object_oriented_pj_10.databinding.FragmentExerciseBinding
 import com.example.object_oriented_pj_10.repository.MyExerciseRepository
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import kotlinx.android.synthetic.main.list_exercise.*
 
@@ -25,7 +21,7 @@ import kotlinx.android.synthetic.main.list_exercise.*
 class ExerciseFragment : Fragment() {
 
     var binding: FragmentExerciseBinding?=null
-    private val repository = MyExerciseRepository();
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +33,6 @@ class ExerciseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentExerciseBinding.inflate(inflater)
-
         return binding?.root
     }
 
@@ -49,7 +44,7 @@ class ExerciseFragment : Fragment() {
         var restTime =0
         var exerciseTime = 0
         var setNum =0
-        val list = arrayListOf<ExerciseList>()
+        val list = arrayListOf<ExerciseList>();
         var map = mutableMapOf<String,List<Int>>();
 
         binding?.recExercise?.layoutManager = LinearLayoutManager(context)
@@ -245,7 +240,7 @@ class ExerciseFragment : Fragment() {
 
 
             binding?.recExercise?.adapter?.notifyDataSetChanged()
-            repository.postMbti(exercise)
+
         }
 
         binding?.addButton?.setOnClickListener {
