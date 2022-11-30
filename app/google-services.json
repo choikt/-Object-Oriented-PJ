@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "392930938779",
+    "firebase_url": "https://object-oriented-pj-10-default-rtdb.firebaseio.com",
+    "project_id": "object-oriented-pj-10",
+    "storage_bucket": "object-oriented-pj-10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392930938779:android:4b5d677959cdac3a83db3e",
+        "android_client_info": {
+          "package_name": "com.example.object_oriented_pj_10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392930938779-navfuk32620k8gu94ah5ouln2na4g130.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQIQUrnXSEyfKPKzehWZjMw9xD36RPl7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392930938779-navfuk32620k8gu94ah5ouln2na4g130.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
