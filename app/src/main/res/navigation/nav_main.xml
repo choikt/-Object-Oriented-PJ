@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/studyFragment"
-        android:name="com.example.object_oriented_pj_10.StudyFragment"
+        android:name="com.example.object_oriented_pj_10.STUDY.StudyCountUpFragment"
         android:label="Study"
-        tools:layout="@layout/fragment_study" >
+        tools:layout="@layout/fragment_study_countup" >
         <action
             android:id="@+id/action_studyFragment_to_studyFragment2"
             app:destination="@id/studyFragment2" />
@@ -39,9 +39,9 @@
     </fragment>
     <fragment
         android:id="@+id/studyFragment2"
-        android:name="com.example.object_oriented_pj_10.StudyFragment2"
+        android:name="com.example.object_oriented_pj_10.STUDY.StudyCountDownFragment"
         android:label="fragment_study2"
-        tools:layout="@layout/fragment_study2" >
+        tools:layout="@layout/fragment_study_countdown" >
         <action
             android:id="@+id/action_studyFragment2_to_studyFragment"
             app:destination="@id/studyFragment" />

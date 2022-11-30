@@ -1,4 +1,4 @@
-package com.example.object_oriented_pj_10
+package com.example.object_oriented_pj_10.STUDY
 
 import android.os.Bundle
 import android.os.SystemClock
@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.object_oriented_pj_10.databinding.FragmentStudyBinding
+import com.example.object_oriented_pj_10.R
+import com.example.object_oriented_pj_10.databinding.FragmentStudyCountupBinding
 
-class StudyFragment : Fragment() {
+class StudyCountUpFragment : Fragment() {
 
-    var binding:FragmentStudyBinding?=null
+    var binding:FragmentStudyCountupBinding?=null
 
     //멈춘 시각 저장
     var pauseTime = 0L
@@ -26,15 +27,14 @@ class StudyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStudyBinding.inflate(inflater)
-        // Inflate the layout for this fragment
+        binding = FragmentStudyCountupBinding.inflate(inflater)
+
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // elapsedRealtime: 부팅 이후의 밀리초를 리턴 (절전 모드에서 보낸 시간 포함)
-        // 사용자가 현재시간을 수정해도 영향 받지 않음
+
         binding?.startBtn?.setOnClickListener {
             startButton()
         }
@@ -43,20 +43,19 @@ class StudyFragment : Fragment() {
             stopButton()
         }
 
-
         binding?.resetBtn?.setOnClickListener {
             resetButton()
         }
         val f = Fragment()
         val bundle = Bundle()
         binding?.countdownBtn?.setOnClickListener {
-            bundle.putInt("key",0)
             f.arguments = bundle
             findNavController().navigate(R.id.action_studyFragment_to_studyFragment2, bundle)
         }
     }
 
     private fun resetButton() {
+        // elapsedRealtime: 부팅 이후의 밀리초를 리턴 (절전 모드에서 보낸 시간 포함)
         pauseTime = 0L
         binding?.chronometer?.base = SystemClock.elapsedRealtime()
         binding?.chronometer?.stop()

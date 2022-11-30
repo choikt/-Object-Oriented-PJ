@@ -1,4 +1,4 @@
-package com.example.object_oriented_pj_10
+package com.example.object_oriented_pj_10.STUDY
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.object_oriented_pj_10.databinding.FragmentStudy2Binding
+import com.example.object_oriented_pj_10.databinding.FragmentStudyCountdownBinding
 
 
-class StudyFragment2 : Fragment() {
-    var binding: FragmentStudy2Binding?=null
+class StudyCountDownFragment : Fragment() {
+
+    var binding: FragmentStudyCountdownBinding?=null
 
     lateinit var countDownTimer: CountDownTimer
 
@@ -24,12 +25,13 @@ class StudyFragment2 : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStudy2Binding.inflate(inflater)
-        // Inflate the layout for this fragment
+        binding = FragmentStudyCountdownBinding.inflate(inflater)
+
         return binding?.root
     }
 
