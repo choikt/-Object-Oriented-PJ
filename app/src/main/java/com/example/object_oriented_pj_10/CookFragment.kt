@@ -14,13 +14,11 @@ import com.example.object_oriented_pj_10.databinding.FragmentCookBinding
 
 
 class CookFragment : Fragment() {
-    var binding: FragmentCookBinding?=null
+    private var binding: FragmentCookBinding?=null
 
     lateinit var countDownTimer: CountDownTimer
     lateinit var countDownTimer2: CountDownTimer
     lateinit var countDownTimer3: CountDownTimer
-
-
 
 
 
@@ -45,8 +43,6 @@ class CookFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        // 2. Context를 액티비티로 형변환해서 할당
         mainActivity = context as MainActivity
     }
     override fun onCreate(savedInstanceState: Bundle?) {
