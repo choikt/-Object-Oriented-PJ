@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/studyFragment">
+
+    <fragment
+        android:id="@+id/studyFragment"
+        android:name="com.example.object_oriented_pj_10.StudyFragment"
+        android:label="Study"
+        tools:layout="@layout/fragment_study" />
+    <fragment
+        android:id="@+id/cookFragment"
+        android:name="com.example.object_oriented_pj_10.CookFragment"
+        android:label="Cook"
+        tools:layout="@layout/fragment_cook" />
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.object_oriented_pj_10.ExerciseFragment"
+        android:label="Exercise"
+        tools:layout="@layout/fragment_exercise" >
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseTimer"
+            app:destination="@id/exerciseTimer" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseTimer"
+        android:name="com.example.object_oriented_pj_10.ExerciseTimer"
+        android:label="fragment_exercise_timer"
+        tools:layout="@layout/fragment_exercise_timer" >
+        <action
+            android:id="@+id/action_exerciseTimer_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.object_oriented_pj_10.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" />
+</navigation>
