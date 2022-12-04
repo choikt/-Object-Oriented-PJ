@@ -32,6 +32,7 @@ class StudyCountUpFragment : Fragment() {
         return binding?.root
     }
 
+    // Study CountUp Timer 에서 보여지는 버튼 3가지에 따른 실행 함수 호출.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,6 +55,29 @@ class StudyCountUpFragment : Fragment() {
         }
     }
 
+    // 시작 버튼 눌렀을때.
+    private fun startButton() {
+        binding?.chronometer?.base = SystemClock.elapsedRealtime() + pauseTime
+        binding?.chronometer?.start()
+
+        //버튼 표시 여부 조정
+        binding?.stopBtn?.isEnabled = true
+        binding?.resetBtn?.isEnabled = true
+        binding?.startBtn?.isEnabled = false
+    }
+    
+    // 멈춤 버튼 눌렀을때.
+    private fun stopButton() {
+        pauseTime = binding?.chronometer?.base!! - SystemClock.elapsedRealtime()
+        binding?.chronometer?.stop()
+
+        //버튼 표시 여부 조정
+        binding?.stopBtn?.isEnabled = false
+        binding?.resetBtn?.isEnabled = true
+        binding?.startBtn?.isEnabled = true
+    }
+    
+    // 리셋 버튼 눌렀을때.
     private fun resetButton() {
         // elapsedRealtime: 부팅 이후의 밀리초를 리턴 (절전 모드에서 보낸 시간 포함)
         pauseTime = 0L
@@ -65,25 +89,4 @@ class StudyCountUpFragment : Fragment() {
         binding?.resetBtn?.isEnabled = false
         binding?.startBtn?.isEnabled = true
     }
-
-    private fun stopButton() {
-        pauseTime = binding?.chronometer?.base!! - SystemClock.elapsedRealtime()
-        binding?.chronometer?.stop()
-
-        //버튼 표시 여부 조정
-        binding?.stopBtn?.isEnabled = false
-        binding?.resetBtn?.isEnabled = true
-        binding?.startBtn?.isEnabled = true
-    }
-
-    private fun startButton() {
-        binding?.chronometer?.base = SystemClock.elapsedRealtime() + pauseTime
-        binding?.chronometer?.start()
-
-        //버튼 표시 여부 조정
-        binding?.stopBtn?.isEnabled = true
-        binding?.resetBtn?.isEnabled = true
-        binding?.startBtn?.isEnabled = false
-    }
-
 }
