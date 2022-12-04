@@ -15,7 +15,13 @@
         android:icon="@drawable/health"
         android:title="exercise" />
     <item
+ 
         android:id="@+id/gameFragment"
         android:icon="@drawable/ic_baseline_games_24"
         android:title="game" />
+    <item
+        android:id="@+id/memoFragment"
+        android:icon="@drawable/diary"
+        android:title="memo" />
+
 </menu>
