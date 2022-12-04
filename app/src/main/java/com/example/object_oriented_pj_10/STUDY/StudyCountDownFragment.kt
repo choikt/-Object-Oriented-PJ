@@ -14,11 +14,11 @@ class StudyCountDownFragment : Fragment() {
     var binding: FragmentStudyCountdownBinding?=null
 
     lateinit var countDownTimer: CountDownTimer
-
-    var timeRunning = false
-    var firstState=false
-    var time =0L
-    var tempTime= 0L
+    
+    var timeRunning = false // timer 실행 여부
+    var startState=false // start 버튼 작동 여부
+    var time =0L // 초기 값
+    var tempTime= 0L // 실행 시간
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,7 @@ class StudyCountDownFragment : Fragment() {
         return binding?.root
     }
 
+    // Study CountDown Timer 에서 보여지는 버튼 3가지에 따른 실행 함수 호출.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.btnStart?.setOnClickListener{
@@ -49,8 +50,10 @@ class StudyCountDownFragment : Fragment() {
             stopTimer()
         }
     }
+
+    // start 버튼이 눌렸을때 timer가 보여지게 끔 작동.
     private fun viewMode(mode:String){
-        firstState=true
+        startState=true
 
         if (mode=="start"){
             binding?.settingLayout?.visibility= View.GONE
@@ -61,6 +64,8 @@ class StudyCountDownFragment : Fragment() {
             binding?.timerLayout?.visibility= View.GONE
         }
     }
+
+    // timeRunning(boolean값) 에 따른 함수 실행 결정.
     private fun startStop(){
         if(timeRunning){
             stopTimer()
@@ -69,8 +74,10 @@ class StudyCountDownFragment : Fragment() {
             startTimer()
         }
     }
+
+    // 시작 버튼 눌렀을때.
     private fun startTimer(){
-        if (firstState){
+        if (startState){
             val sHour= binding?.hourEdit?.text.toString()
             val sMin= binding?.minEdit?.text.toString()
             val sSec= binding?.secEdit?.text.toString()
@@ -89,14 +96,18 @@ class StudyCountDownFragment : Fragment() {
         }.start()
         binding?.stopBtn?.text="일시정지"
         timeRunning=true
-        firstState=false
+        startState=false
     }
+
+    // 멈춤 버튼 눌렀을때.
     private fun stopTimer(){
         countDownTimer.cancel()
         timeRunning=false
         binding?.stopBtn?.text="계속"
 
     }
+
+    // 시간을 입력했을때.
     private fun updateTime(){
         val hour = tempTime/3600000
         val min =tempTime%3600000/60000
