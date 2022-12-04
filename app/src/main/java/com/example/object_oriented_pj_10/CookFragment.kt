@@ -98,7 +98,7 @@ class CookFragment : Fragment() {
 
     }
     private fun initSounds() {
-        endSoundId = soundPool.load(mainActivity, R.raw.end, 1)
+        endSoundId = soundPool.load(mainActivity, R.raw.timer_bell, 1)
     }
 
 

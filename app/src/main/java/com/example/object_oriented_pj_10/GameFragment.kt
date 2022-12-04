@@ -59,7 +59,7 @@ class GameFragment : Fragment() {
         initSounds()
         bindViews()
         binding?.btnRandomSec?.setOnClickListener {
-            stopCountDown()
+            stopCountDown()//새로운 타이머 시작 멈춤
             updateRemainTime(range.random().toString().toLong()*60*1000L)
             startCountDownrandom(range.random().toString().toLong())
         }
